@@ -8,9 +8,7 @@
   </head>
   <body>
     <div id="app">
-      <h1>📌 게시판 목록 v2</h1>
-
-      <!-- 아래의 목록을 완성하세요 -->
+      <h1 id="title">📌 게시판 목록 v2</h1>
       <ul>
         <li
           class="post-item"
@@ -19,10 +17,11 @@
           @click="toggleContent(index)"
         >
           <h2>
-            <div> {{post.no}}. {{post.title}} </div>
+            <div>{{post.no}}. {{post.title}}</div>
             <div id="toggle">{{selected[index] ? "▲" : "▼" }}</div>
           </h2>
           <div v-if="selected[index]" class="post-content">
+            <h1>{{post.title}}</h1>
             <div>{{post.content}}</div>
             <button @click="closeContent()">닫기</button>
           </div>
@@ -36,18 +35,8 @@
       createApp({
         setup() {
           const contents = ref('');
-          const selected = ref([
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-          ]);
+          const selected = ref([false, false, false, false, false,
+                                false, false, false, false, false,]);
           const posts = ref([
             {
               no: 1,
@@ -111,7 +100,6 @@
             },
           ]);
 
-          // 아래에 화면처럼 동작하도록 구현해보세요
           const toggleContent = (index) => {
             selected.value[index] = !selected.value[index];
           };
@@ -135,12 +123,11 @@
       #toggle {
         color: #929292;
       }
-
       h2 {
         display: flex;
         justify-content: space-between;
       }
-      h1 {
+      #title {
         text-align: center;
         color: #333;
       }
@@ -161,7 +148,7 @@
       }
       .post-content {
         margin-top: 20px;
-        padding: 15px;
+        padding: 30px 20px;
         border: 1px solid #ddd;
         border-radius: 5px;
         background: #fff;
@@ -178,7 +165,6 @@
       button:hover {
         background: #ff4f4f;
       }
-
       .arrow {
         font-size: 0.8em;
         color: #888;
