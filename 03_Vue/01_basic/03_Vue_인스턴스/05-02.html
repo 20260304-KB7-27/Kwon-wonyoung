@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue 3 연습용 Composition</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <input type="text" v-model.number="amount"><br/>
+      <button @click="deposit">입금</button>
+      <button @click="withdraw">인출</button>
+      <h3>계산 잔고: [{{balance}}]</h3>
+    </div>
+
+    <script>
+      const { createApp, ref, computed } = Vue;
+
+      createApp({
+        setup() {
+          const amount = ref(0);
+          const balance = ref(0);
+
+          const deposit = () => {
+            let n = amount.value;
+            balance.value += n;
+          }
+
+          const withdraw = () => {
+            let n = amount.value;
+            balance.value -= n;
+          }
+
+          return {
+            amount, balance,
+            deposit, withdraw
+          };
+        },
+      }).mount("#app");
+    </script>
+  </body>
+</html>
