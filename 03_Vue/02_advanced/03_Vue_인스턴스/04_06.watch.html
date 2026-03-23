@@ -37,7 +37,7 @@
 
           // 객체를 deep을 사용해서 감시할 경우, 동일한 proxy를 참조함.
           watch(
-            () => ({...user}),
+            () => ({...user.value}),
             (newVal, oldVal) => {
               console.log(
                 `기존 사용자:  ${oldVal.age}, ${oldVal.email}  -> 변경된 사용자: ${newVal.age}, ${newVal.email}`,
