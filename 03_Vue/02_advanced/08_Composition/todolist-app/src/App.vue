@@ -1,19 +1,16 @@
 <template>
-  <div class="container">
+  <div id="app" class="container">
     <div class="card card-body bg-light">
-      <div class="title">:: Todolist App</div>
+      <div class="title">::Todolist App</div>
     </div>
-    <!-- 입력 컴포넌트 -->
     <div class="card card-default card-borderless">
       <div class="card-body">
-        <InputTodo @add="addTodo"></InputTodo>
-
-        <!-- 목록 출력 컴포넌트 -->
-        <Todolist
+        <InputTodo @add-todo="addTodo" />
+        <TodoList
           :todolist="todolist"
-          @delete="deleteTodo"
-          @toggle="toggleCompleted"
-        ></Todolist>
+          @delete-todo="deleteTodo"
+          @toggle-completed="toggleCompleted"
+        />
       </div>
     </div>
   </div>
@@ -22,9 +19,9 @@
 <script setup>
 import { ref } from 'vue';
 import InputTodo from './components/InputTodo.vue';
-import Todolist from './components/Todolist.vue';
+import TodoList from './components/TodoList.vue';
 
-let ts = new Date().getTime();
+const ts = new Date().getTime();
 
 const todolist = ref([
   { id: ts, todo: '자전거 타기', completed: false },
@@ -34,19 +31,22 @@ const todolist = ref([
 ]);
 
 const deleteTodo = (id) => {
-  let index = todolist.value.findIndex((item) => id === item.id);
+  let index = todolist.value.findIndex((item) => item.id === id);
   todolist.value.splice(index, 1);
 };
 
 const toggleCompleted = (id) => {
-  let index = todolist.value.findIndex((item) => id === item.id);
+  let index = todolist.value.findIndex((item) => item.id === id);
   todolist.value[index].completed = !todolist.value[index].completed;
 };
 
-const addTodo = (newTodo) => {
-  todolist.value.push(newTodo);
+const addTodo = (todo) => {
+  todolist.value.push({
+    id: new Date().getTime(),
+    todo: todo,
+    completed: false,
+  });
 };
-
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped></style>
